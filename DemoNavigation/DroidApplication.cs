@@ -34,11 +34,10 @@ namespace DemoNavigation
         {
             base.OnCreate();
             var builder = new Autofac.ContainerBuilder();
-            builder.RegisterType<MainActivity>().AsImplementedInterfaces();
-            builder.RegisterType<FirstActivity>().AsImplementedInterfaces();
-            builder.RegisterType<NavigationService>().AsImplementedInterfaces();
+            builder.RegisterType<NavigationService>().InstancePerLifetimeScope().AsImplementedInterfaces();
             builder.RegisterType<HomeController>();
             builder.RegisterType<FirstController>();
+            builder.RegisterType<SecondController>();
             app.Container = builder.Build();
         }
     }

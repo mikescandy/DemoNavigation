@@ -1,24 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.InteropServices;
 using Autofac;
+using GalaSoft.MvvmLight.Messaging;
 
 namespace Core
 {
-    public abstract class ControllerBase<T> : IControllerBase<T> where T : IView
+    public abstract class ControllerBase : IControllerBase
     {
         public INavigationService NavigationService = Application.Instance.Container.Resolve<INavigationService>();
 
-        public ControllerBase()
+        protected ControllerBase() : this(null)
         {
-
         }
 
-        public ControllerBase(object parameters)
+        protected ControllerBase(object data)
         {
+        }
 
+        public virtual void ReverseInit(object data)
+        {
         }
     }
 }

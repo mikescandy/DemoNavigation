@@ -1,44 +1,114 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-
+using System.Reflection;
+using System.Security;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Autofac;
+using CheeseBind;
 using Core;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Helpers;
 
 namespace DemoNavigation
 {
     public abstract class ActivityBase<T> : Activity where T : IControllerBase
     {
+        protected Binding Bindings { get; set; }
+        private readonly INavigationService _navigationService;
         protected virtual T Controller { get; private set; }
 
-        protected ActivityBase() : this(null)
+        protected ActivityBase()
         {
+            _navigationService = Core.Application.Instance.Container.Resolve<INavigationService>();
+            Controller = ResolveController();
 
         }
 
-        protected ActivityBase(object parameters)
+        protected void OnCreate(Bundle savedInstanceState, int resourceId)
         {
-            Controller = ResolveController(parameters);
+            base.OnCreate(savedInstanceState);
+            SetContentView(resourceId);
+            Cheeseknife.Bind(this);
+            BindString();
+            BindCommands();
         }
 
-        private T ResolveController(object parameters)
+        protected override void OnResume()
         {
-            if (parameters != null)
+            base.OnResume();
+            if (_navigationService.HasReturnData())
             {
-                return Core.Application.Instance.Container.Resolve<T>(new NamedParameter("parameters", parameters));
+                Controller.ReverseInit(_navigationService.GetReturnData());
+            }
+        }
+
+        protected override void OnDestroy()
+        {
+            base.OnDestroy();
+
+            var bindings = GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).Where(p => p.PropertyType.IsAssignableFrom(typeof(Binding)) || p.GetType().IsAssignableFrom(typeof(Binding<,>)));
+            foreach (var binding in bindings)
+            {
+                var o = binding.GetValue(this);
+                if (o is Binding)
+                {
+                    ((Binding)o).Detach();
+                }
+            }
+
+            var views = GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).Where(p => p.CustomAttributes.Any(m => m.AttributeType.Name == "BindView"));
+            foreach (var view in views)
+            {
+                ((Java.Lang.Object)view.GetValue(this)).Dispose();
+            }
+        }
+
+        private T ResolveController()
+        {
+            T controller;
+
+            if (_navigationService.HasData())
+            {
+                controller = Core.Application.Instance.Container.Resolve<T>(new NamedParameter("data", _navigationService.GetData()));
             }
             else
             {
-                return Core.Application.Instance.Container.Resolve<T>();
+                controller = Core.Application.Instance.Container.Resolve<T>();
             }
 
+            if (_navigationService.HasReturnData())
+            {
+                controller.ReverseInit(_navigationService.GetReturnData());
+            }
+
+            return controller;
+        }
+
+        private void BindString()
+        {
+            var bindableProperties = this.GetType().GetProperties().Where(p => p.CustomAttributes.Any(a => a.AttributeType.Name == "BindAttribute"));
+            foreach (var bindableProperty in bindableProperties)
+            {
+                var bindableAttribute = bindableProperty.GetCustomAttribute(typeof(BindAttribute)) as BindAttribute;
+                if (bindableAttribute != null)
+                {
+                    bindableProperty.GetValue(this).SetBinding<string, string>(bindableAttribute.Target, Controller, bindableAttribute.Source, bindableAttribute.BindingMode);
+                }
+            }
+        }
+
+        private void BindCommands()
+        {
+            var bindableProperties = this.GetType().GetProperties().Where(p => p.CustomAttributes.Any(a => a.AttributeType.Name == "BindCommandAttribute"));
+            foreach (var bindableProperty in bindableProperties)
+            {
+                var bindableAttribute = bindableProperty.GetCustomAttribute(typeof(BindCommandAttribute)) as BindCommandAttribute;
+                if (bindableAttribute != null)
+                {
+                    bindableProperty.GetValue(this).SetCommand(bindableAttribute.Target, (RelayCommand)Controller.GetType().GetProperty(bindableAttribute.Source).GetValue(Controller));
+                }
+            }
         }
     }
 }

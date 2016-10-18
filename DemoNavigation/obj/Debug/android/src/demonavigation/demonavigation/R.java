@@ -14,10 +14,14 @@ public final class R {
         public static final int icon=0x7f020000;
     }
     public static final class id {
-        public static final int HomeButton=0x7f050000;
+        public static final int HomeButton=0x7f050001;
+        public static final int editText1=0x7f050002;
+        public static final int textView1=0x7f050000;
     }
     public static final class layout {
-        public static final int main=0x7f030000;
+        public static final int first=0x7f030000;
+        public static final int main=0x7f030001;
+        public static final int second=0x7f030002;
     }
     public static final class string {
         public static final int ApplicationName=0x7f040001;

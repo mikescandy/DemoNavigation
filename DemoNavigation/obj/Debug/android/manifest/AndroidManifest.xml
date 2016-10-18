@@ -5,7 +5,8 @@
   <uses-permission android:name="android.permission.INTERNET" />
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   <application android:label="DemoNavigation" android:name="md50b3136709769d771756044d73e28b613.DroidApplication" android:allowBackup="true" android:icon="@drawable/icon" android:debuggable="true">
-    <activity android:icon="@drawable/icon" android:label="DemoNavigation" android:name="md50b3136709769d771756044d73e28b613.MainActivity">
+    <activity android:icon="@drawable/icon" android:label="SecondActivity" android:name="md50b3136709769d771756044d73e28b613.SecondActivity" />
+    <activity android:icon="@drawable/icon" android:label="DemoNavigation" android:name="md50b3136709769d771756044d73e28b613.HomeActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
