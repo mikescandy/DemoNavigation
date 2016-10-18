@@ -90,5 +90,6 @@ C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\DemoNavig
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\DemoNavigation\obj\Debug\android\assets\System.ServiceModel.Internals.dll.mdb
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\DemoNavigation\obj\Debug\android\assets\System.Xml.dll.mdb
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\DemoNavigation\obj\Debug\android\assets\System.Xml.Linq.dll.mdb
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\DemoNavigation\obj\Debug\DemoNavigation.csprojResolveAssemblyReference.cache
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\DemoNavigation\obj\Debug\DemoNavigation.dll.mdb
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\DemoNavigation\bin\Debug\DemoNavigation.dll.mdb

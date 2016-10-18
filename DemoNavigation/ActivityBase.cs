@@ -113,15 +113,15 @@ namespace DemoNavigation
 
                     bindableProperty.GetValue(this)
                         .SetBinding(
-                            () => (byte[])Controller.GetType().GetProperty(bindableAttribute.Source).GetValue(Controller),
-                            () => ((ImageView)bindableProperty.GetValue(this))).ConvertSourceToTarget(bytes =>
+                            () => (byte[])Controller.GetType().GetProperty(bindableAttribute.Source).GetValue(Controller)).WhenSourceChanges(() =>
+
                         {
+                            var b = (byte[])Controller.GetType().GetProperty(bindableAttribute.Source).GetValue(Controller);
                             var iv = ((ImageView)bindableProperty.GetValue(this));
-                            if (bytes != null && bytes.Any())
+                            if (b != null && b.Any())
                             {
-                                iv.SetImageBitmap(BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length));
+                                iv.SetImageBitmap(BitmapFactory.DecodeByteArray(b, 0, b.Length));
                             }
-                            return iv;
                         });
 
                 }

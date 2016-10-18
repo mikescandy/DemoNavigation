@@ -24,3 +24,13 @@ C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\obj\
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Core.dll.mdb
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\obj\Debug\Core.dll.mdb
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Core.dll.mdb
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\obj\Debug\Core.dll.mdb
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Core.dll.mdb
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\obj\Debug\Core.dll.mdb
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Core.dll.mdb
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\obj\Debug\Core.dll.mdb
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Core.dll.mdb
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\obj\Debug\Core.dll.mdb
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Core.dll.mdb
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\obj\Debug\Core.dll.mdb
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Core.dll.mdb
