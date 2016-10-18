@@ -4,6 +4,8 @@ C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\GalaSoft.MvvmLight.dll
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\GalaSoft.MvvmLight.Extras.dll
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Plugin.Media.Abstractions.dll
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Plugin.Media.dll
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Autofac.xml
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\GalaSoft.MvvmLight.pdb
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\GalaSoft.MvvmLight.xml
@@ -11,11 +13,13 @@ C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\GalaSoft.MvvmLight.Extras.xml
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Plugin.Media.pdb
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Plugin.Media.xml
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Plugin.Media.Abstractions.pdb
+C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Plugin.Media.Abstractions.xml
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\obj\Debug\Core.csprojResolveAssemblyReference.cache
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\obj\Debug\Core.dll
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\obj\Debug\Core.pdb
-C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\obj\Debug\Core.dll.mdb
-C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Core.dll.mdb
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\obj\Debug\Core.dll.mdb
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\bin\Debug\Core.dll.mdb
 C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\obj\Debug\Core.dll.mdb

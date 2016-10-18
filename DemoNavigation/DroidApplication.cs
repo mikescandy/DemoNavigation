@@ -11,12 +11,13 @@ using Android.Views;
 using Android.Widget;
 using Autofac;
 using Core;
+using Plugin.CurrentActivity;
 using Application = Android.App.Application;
 
 namespace DemoNavigation
 {
     [Application]
-  public   class DroidApplication :Application
+  public class DroidApplication :Application, Application.IActivityLifecycleCallbacks
     {
         public static Core.Application app = Core.Application.Instance;
         /// <summary>
@@ -39,6 +40,46 @@ namespace DemoNavigation
             builder.RegisterType<FirstController>();
             builder.RegisterType<SecondController>();
             app.Container = builder.Build();
+            RegisterActivityLifecycleCallbacks(this);
+         }
+
+       
+
+        public override void OnTerminate()
+        {
+            base.OnTerminate();
+            UnregisterActivityLifecycleCallbacks(this);
+        }
+
+        public void OnActivityCreated(Activity activity, Bundle savedInstanceState)
+        {
+            CrossCurrentActivity.Current.Activity = activity;
+        }
+
+        public void OnActivityDestroyed(Activity activity)
+        {
+        }
+
+        public void OnActivityPaused(Activity activity)
+        {
+        }
+
+        public void OnActivityResumed(Activity activity)
+        {
+            CrossCurrentActivity.Current.Activity = activity;
+        }
+
+        public void OnActivitySaveInstanceState(Activity activity, Bundle outState)
+        {
+        }
+
+        public void OnActivityStarted(Activity activity)
+        {
+            CrossCurrentActivity.Current.Activity = activity;
+        }
+
+        public void OnActivityStopped(Activity activity)
+        {
         }
     }
 }

@@ -102,13 +102,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Activities\BindAttribute.cs" />
+    <Compile Include="Activities\BindImageAttribute.cs" />
     <Compile Include="Activities\BindCommandAttribute.cs" />
     <Compile Include="Activities\SecondActivity.cs" />
     <Compile Include="ActivityBase.cs" />
     <Compile Include="DroidApplication.cs" />
     <Compile Include="Activities\HomeActivity.cs" />
     <Compile Include="Activities\FirstActivity.cs" />
-    <Compile Include="MainApplication.cs" />
     <Compile Include="NavigationService.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

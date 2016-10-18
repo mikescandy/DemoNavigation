@@ -21,6 +21,10 @@ namespace DemoNavigation
         [Bind(Source = "EditText", Target = "Text", BindingMode = BindingMode.TwoWay)]
         public EditText EditText { get; set; }
 
+        [BindView(Resource.Id.imageView1)]
+        [BindImage(Source = "Image")]
+        public ImageView Image { get; set; }
+
         protected Binding<string, string> EditTextBinding { get; set; }
 
         protected override void OnCreate(Bundle bundle)

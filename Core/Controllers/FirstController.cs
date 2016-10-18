@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using GalaSoft.MvvmLight.Command;
-using Plugin.Media;
+﻿using GalaSoft.MvvmLight.Command;
 using PropertyChanged;
 
 namespace Core
@@ -10,19 +8,9 @@ namespace Core
     {
         public string Text { get; set; }
         public RelayCommand DoSomethingCommand { get; set; }
-        public async void DoSomething()
+        public void DoSomething()
         {
-            await CrossMedia.Current.Initialize();
-            if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)
-            {
-                var file = await CrossMedia.Current.TakePhotoAsync(new Plugin.Media.Abstractions.StoreCameraMediaOptions
-                {
-                    Directory = "Sample",
-                    Name = "test.jpg"
-                });
-
-            }
-
+            NavigationService.NavigateTo<SecondController>(false);
         }
 
 
@@ -32,13 +20,8 @@ namespace Core
 
         public FirstController(FirstControllerData data) : base(data)
         {
-            Text = data != null ? data.S ?? "blah" : "no data";
+            Text = data != null ? data.S??"blah" : "no data";
             DoSomethingCommand = new RelayCommand(DoSomething);
-        }
-
-        public override void ReverseInit(object data)
-        {
-            NavigationService.NavigateTo<SecondController>(false);
         }
     }
 

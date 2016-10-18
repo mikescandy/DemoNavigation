@@ -105,6 +105,12 @@ class MonoPackageManager_Resources {
 		"GalaSoft.MvvmLight.Extras.dll",
 		"GalaSoft.MvvmLight.Platform.dll",
 		"Microsoft.Practices.ServiceLocation.dll",
+		"Plugin.CurrentActivity.dll",
+		"Plugin.Media.Abstractions.dll",
+		"Plugin.Media.dll",
+		"Plugin.Permissions.Abstractions.dll",
+		"Plugin.Permissions.dll",
+		"Xamarin.Android.Support.v4.dll",
 		"Core.dll",
 		"System.Runtime.dll",
 		"System.ObjectModel.dll",
@@ -119,9 +125,10 @@ class MonoPackageManager_Resources {
 		"System.Resources.ResourceManager.dll",
 		"System.ComponentModel.dll",
 		"System.Globalization.dll",
+		"System.IO.dll",
+		"System.Runtime.Extensions.dll",
 		"System.Collections.Concurrent.dll",
 		"System.Runtime.InteropServices.dll",
-		"System.Runtime.Extensions.dll",
 	};
 	public static final String[] Dependencies = new String[]{
 	};

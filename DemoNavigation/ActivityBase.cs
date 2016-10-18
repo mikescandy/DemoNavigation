@@ -3,7 +3,9 @@ using System.Reflection;
 using System.Security;
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
+using Android.Widget;
 using Autofac;
 using CheeseBind;
 using Core;
@@ -32,6 +34,7 @@ namespace DemoNavigation
             Cheeseknife.Bind(this);
             BindString();
             BindCommands();
+            BindImages();
         }
 
         protected override void OnResume()
@@ -94,6 +97,33 @@ namespace DemoNavigation
                 if (bindableAttribute != null)
                 {
                     bindableProperty.GetValue(this).SetBinding<string, string>(bindableAttribute.Target, Controller, bindableAttribute.Source, bindableAttribute.BindingMode);
+                }
+            }
+        }
+
+        private void BindImages()
+        {
+            var bindableProperties = this.GetType().GetProperties().Where(p => p.CustomAttributes.Any(a => a.AttributeType.Name == "BindImageAttribute"));
+            foreach (var bindableProperty in bindableProperties)
+            {
+                var bindableAttribute = bindableProperty.GetCustomAttribute(typeof(BindImageAttribute)) as BindImageAttribute;
+                if (bindableAttribute != null)
+                {
+                    //bindableProperty.GetValue(this).SetBinding(bindableAttribute.Target, Controller, bindableAttribute.Source, bindableAttribute.BindingMode);
+
+                    bindableProperty.GetValue(this)
+                        .SetBinding(
+                            () => (byte[])Controller.GetType().GetProperty(bindableAttribute.Source).GetValue(Controller),
+                            () => ((ImageView)bindableProperty.GetValue(this))).ConvertSourceToTarget(bytes =>
+                        {
+                            var iv = ((ImageView)bindableProperty.GetValue(this));
+                            if (bytes != null && bytes.Any())
+                            {
+                                iv.SetImageBitmap(BitmapFactory.DecodeByteArray(bytes, 0, bytes.Length));
+                            }
+                            return iv;
+                        });
+
                 }
             }
         }

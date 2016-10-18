@@ -1,0 +1,32 @@
+﻿<Properties StartupConfiguration="{C7071669-592E-4AB9-B2F6-A8CA83F1EBB0}|Default">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.DemoNavigation PreferredExecutionTarget="Android.192.168.195.101:5555" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workbench ActiveDocument="DemoNavigation\ActivityBase.cs">
+    <Files>
+      <File FileName="DemoNavigation\ActivityBase.cs" Line="118" Column="26" />
+      <File FileName="DemoNavigation\DroidApplication.cs" Line="20" Column="86" />
+      <File FileName="DemoNavigation\MainApplication.cs" Line="38" Column="10" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="DemoNavigation" expanded="True">
+            <Node name="Core" expanded="True" />
+            <Node name="DemoNavigation" expanded="True">
+              <Node name="Activities" expanded="True" />
+              <Node name="Assets" expanded="True" />
+              <Node name="Properties" expanded="True" />
+              <Node name="Resources" expanded="True" />
+              <Node name="ViewModel" expanded="True" />
+              <Node name="ActivityBase.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+</Properties>
