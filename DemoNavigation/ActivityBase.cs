@@ -109,22 +109,18 @@ namespace DemoNavigation
                 var bindableAttribute = bindableProperty.GetCustomAttribute(typeof(BindImageAttribute)) as BindImageAttribute;
                 if (bindableAttribute != null)
                 {
-                    //bindableProperty.GetValue(this).SetBinding(bindableAttribute.Target, Controller, bindableAttribute.Source, bindableAttribute.BindingMode);
+                    Controller.SetBinding<IControllerBase,ImageView>(bindableAttribute.Source,bindableProperty.GetValue(this)).WhenSourceChanges(() =>
 
-                    bindableProperty.GetValue(this)
-                        .SetBinding(
-                            () => (byte[])Controller.GetType().GetProperty(bindableAttribute.Source).GetValue(Controller)).WhenSourceChanges(() =>
-
-                        {
-                            var b = (byte[])Controller.GetType().GetProperty(bindableAttribute.Source).GetValue(Controller);
-                            var iv = ((ImageView)bindableProperty.GetValue(this));
-                            if (b != null && b.Any())
-                            {
-                                iv.SetImageBitmap(BitmapFactory.DecodeByteArray(b, 0, b.Length));
-                            }
-                        });
-
-                }
+						   {
+							   var b = (byte[])Controller.GetType().GetProperty(bindableAttribute.Source).GetValue(Controller);
+							   var iv = ((ImageView)bindableProperty.GetValue(this));
+							   if (b != null && b.Any())
+							   {
+								   iv.SetImageBitmap(BitmapFactory.DecodeByteArray(b, 0, b.Length));
+								   iv.Invalidate();
+							   }
+						   });
+}
             }
         }
 

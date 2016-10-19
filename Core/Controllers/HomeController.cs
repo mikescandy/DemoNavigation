@@ -40,7 +40,11 @@ namespace Core
                 });
 
                 var stream = file.GetStream();
-                await stream.ReadAsync(Image, 0, (int)stream.Length);
+
+				stream.Seek(0, System.IO.SeekOrigin.Begin);
+				var tempImage = new byte[(int)stream.Length];
+                stream.Read(tempImage, 0, (int)stream.Length);
+				Image = tempImage;
             }
 
         }

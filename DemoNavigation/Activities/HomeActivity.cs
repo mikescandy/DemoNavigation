@@ -8,7 +8,7 @@ using GalaSoft.MvvmLight.Helpers;
 
 namespace DemoNavigation
 {
-    [Activity(Label = "DemoNavigation", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "DemoNavigation", MainLauncher = false, Icon = "@drawable/icon")]
     public class HomeActivity : ActivityBase<HomeController>
     {
         [BindView(Resource.Id.HomeButton)]
@@ -16,8 +16,13 @@ namespace DemoNavigation
         [Bind(Source = "ButtonText", Target = "Text", BindingMode = BindingMode.OneWay)]
         public Button Button { get; set; }
 
+		[BindView(Resource.Id.CameraButton)]
+		[BindCommand(Source = "DoTakePictureCommand", Target = "Click")]
+		[Bind(Source = "ButtonText", Target = "Text", BindingMode = BindingMode.OneWay)]
+		public Button CameraButton { get; set; }
 
-        [BindView(Resource.Id.editText1)]
+
+		[BindView(Resource.Id.editText1)]
         [Bind(Source = "EditText", Target = "Text", BindingMode = BindingMode.TwoWay)]
         public EditText EditText { get; set; }
 
