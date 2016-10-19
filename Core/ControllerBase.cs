@@ -1,9 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using Autofac;
 using Core.Annotations;
-using GalaSoft.MvvmLight.Messaging;
 
 namespace Core
 {

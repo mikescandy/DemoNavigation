@@ -37,7 +37,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Application.cs" />
-    <Compile Include="ApplicationBase.cs" />
     <Compile Include="ControllerBase.cs" />
     <Compile Include="DependentRelayCommand.cs" />
     <Compile Include="IContainerView.cs" />

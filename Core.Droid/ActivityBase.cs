@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows.Input;
@@ -8,7 +7,6 @@ using Android.OS;
 using Android.Widget;
 using Autofac;
 using CheeseBind;
-using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Helpers;
 
 namespace Core.Droid
@@ -23,7 +21,6 @@ namespace Core.Droid
         {
             _navigationService = Core.Application.Instance.Container.Resolve<INavigationService>();
             Controller = ResolveController();
-
         }
 
         protected void OnCreate(Bundle savedInstanceState, int resourceId)
@@ -89,7 +86,7 @@ namespace Core.Droid
 
         private void BindString()
         {
-            var bindableProperties = this.GetType().GetProperties().Where(p => p.CustomAttributes.Any(a => a.AttributeType.Name == "BindAttribute"));
+            var bindableProperties = GetType().GetProperties().Where(p => p.CustomAttributes.Any(a => a.AttributeType.Name == "BindAttribute"));
             foreach (var bindableProperty in bindableProperties)
             {
                 var bindableAttribute = bindableProperty.GetCustomAttribute(typeof(BindAttribute)) as BindAttribute;
@@ -102,7 +99,7 @@ namespace Core.Droid
 
         private void BindImages()
         {
-            var bindableProperties = this.GetType().GetProperties().Where(p => p.CustomAttributes.Any(a => a.AttributeType.Name == "BindImageAttribute"));
+            var bindableProperties = GetType().GetProperties().Where(p => p.CustomAttributes.Any(a => a.AttributeType.Name == "BindImageAttribute"));
             foreach (var bindableProperty in bindableProperties)
             {
                 var bindableAttribute = bindableProperty.GetCustomAttribute(typeof(BindImageAttribute)) as BindImageAttribute;
@@ -125,7 +122,7 @@ namespace Core.Droid
 
         private void BindCommands()
         {
-            var bindableProperties = this.GetType().GetProperties().Where(p => p.CustomAttributes.Any(a => a.AttributeType.Name == "BindCommandAttribute"));
+            var bindableProperties = GetType().GetProperties().Where(p => p.CustomAttributes.Any(a => a.AttributeType.Name == "BindCommandAttribute"));
             foreach (var bindableProperty in bindableProperties)
             {
                 var bindableAttribute = bindableProperty.GetCustomAttribute(typeof(BindCommandAttribute)) as BindCommandAttribute;

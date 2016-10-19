@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
+
 using GalaSoft.MvvmLight.Command;
 
 namespace Core
 {
+    // from here http://www.mutzl.com/2014/02/a-smart-mvvm-command/
     public class DependentRelayCommand : RelayCommand
     {
 
