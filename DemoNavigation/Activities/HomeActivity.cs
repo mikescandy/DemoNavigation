@@ -3,12 +3,14 @@ using Android.Widget;
 using Android.OS;
 using CheeseBind;
 using Core;
+using Core.Droid;
+using DemoApp.Controllers;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Helpers;
 
 namespace DemoNavigation
 {
-    [Activity(Label = "DemoNavigation", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "DemoNavigation", MainLauncher = false, Icon = "@drawable/icon")]
     public class HomeActivity : ActivityBase<HomeController>
     {
         [BindView(Resource.Id.HomeButton)]

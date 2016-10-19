@@ -1,5 +1,7 @@
+using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Windows.Input;
 using Android.App;
 using Android.Graphics;
 using Android.OS;
@@ -129,7 +131,7 @@ namespace Core.Droid
                 var bindableAttribute = bindableProperty.GetCustomAttribute(typeof(BindCommandAttribute)) as BindCommandAttribute;
                 if (bindableAttribute != null)
                 {
-                    bindableProperty.GetValue(this).SetCommand(bindableAttribute.Target, (RelayCommand)Controller.GetType().GetProperty(bindableAttribute.Source).GetValue(Controller));
+                    bindableProperty.GetValue(this).SetCommand(bindableAttribute.Target, (ICommand)Controller.GetType().GetProperty(bindableAttribute.Source).GetValue(Controller));
                 }
             }
         }

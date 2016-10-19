@@ -123,7 +123,7 @@
     <AndroidResource Include="Resources\layout\Second.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout\Login.axml" />
+    <AndroidResource Include="Resources\layout\ActivityLogin.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml">
@@ -147,6 +147,10 @@
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{43661ec6-9854-4a52-af47-24012a5ff218}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DemoApp\DemoApp.csproj">
+      <Project>{0698AB86-A247-48CE-B710-23493E11DF6A}</Project>
+      <Name>DemoApp</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

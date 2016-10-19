@@ -15,4 +15,8 @@
         android:id="@+id/login"
         android:layout_width="100dp"
         android:layout_height="40dp" />
+    <Button
+        android:id="@+id/donothing"
+        android:layout_width="100dp"
+        android:layout_height="40dp" />
 </LinearLayout>

@@ -1,20 +1,17 @@
-﻿using FluentValidation;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
-using Plugin.Media;
+﻿using System.Windows.Input;
+using Core;
 using PropertyChanged;
 
-namespace Core
+namespace DemoApp.Controllers
 {
     [ImplementPropertyChanged]
     public sealed class LoginController : ControllerBase
     {
-        public RelayCommand DoLoginCommand { get; set; }
-        
+        public ICommand DoLoginCommand { get; set; }
         public string Username { get; set; }
-		public string Password { get; set; }
-
-		private readonly LoginValidator _loginValidator;
+        public string Password { get; set; }
+        
+        private readonly LoginValidator _loginValidator;
 
         public LoginController() : this(null)
         {
@@ -22,8 +19,8 @@ namespace Core
 
         public LoginController(object data) : base(data)
         {
-			DoLoginCommand = new RelayCommand(Login, IsValid);
-			_loginValidator = new LoginValidator();
+            DoLoginCommand = new DependentRelayCommand(() => {/* do nothing*/}, Validate, this, () => Username, () => Password);
+            _loginValidator = new LoginValidator();
         }
 
         public void Login()
@@ -31,25 +28,10 @@ namespace Core
             NavigationService.NavigateTo<FirstController>(new FirstControllerData { S = Password }, true);
         }
 
-		public bool IsValid()
-		{
-			var result = _loginValidator.Validate(this);
-			return result.IsValid;
-		}
+        public bool Validate()
+        {
+            var result = _loginValidator.Validate(this);
+            return result.IsValid;
+        }
     }
-
-	public class LoginValidator : AbstractValidator<LoginController>
-	{
-		public LoginValidator()
-		{
-			RuleFor(controller => controller.Username).NotEmpty().Must(BeAValidEmail);
-			RuleFor(controller => controller.Password).NotEmpty();
-		}
-
-		private bool BeAValidEmail(string username)
-		{
-			return true;
-		}
-	}
-
 }

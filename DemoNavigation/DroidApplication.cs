@@ -11,6 +11,8 @@ using Android.Views;
 using Android.Widget;
 using Autofac;
 using Core;
+using Core.Droid;
+using DemoApp.Controllers;
 using Plugin.CurrentActivity;
 using Application = Android.App.Application;
 
@@ -39,6 +41,7 @@ namespace DemoNavigation
             builder.RegisterType<HomeController>();
             builder.RegisterType<FirstController>();
             builder.RegisterType<SecondController>();
+            builder.RegisterType<LoginController>();
             app.Container = builder.Build();
             RegisterActivityLifecycleCallbacks(this);
          }

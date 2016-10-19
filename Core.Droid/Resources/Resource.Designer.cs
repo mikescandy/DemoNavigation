@@ -11,7 +11,7 @@
 
 [assembly: global::Android.Runtime.ResourceDesignerAttribute("Core.Droid.Resource", IsApplication=false)]
 
-namespace Core.Droid.Resources
+namespace Core.Droid
 {
 	
 	

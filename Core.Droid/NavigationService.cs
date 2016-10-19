@@ -5,6 +5,7 @@ using Android.App;
 using Android.Content;
 using Android.Runtime;
 using Android.Util;
+using Core.Droid;
 using Java.Lang;
 using Java.Util;
 
@@ -21,7 +22,7 @@ namespace Core.Droid
         {
             _registeredTypes = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
                                 from type in assembly.GetTypes()
-                                where Attribute.IsDefined(type, typeof(ActivityAttribute))
+                                where System.Attribute.IsDefined(type, typeof(ActivityAttribute))
                                 select type).ToList();
             _data = new Stack<object>();
             _returnData = new Stack<object>();

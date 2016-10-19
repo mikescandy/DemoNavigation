@@ -3,6 +3,8 @@ using Android.OS;
 using Android.Widget;
 using CheeseBind;
 using Core;
+using Core.Droid;
+using DemoApp.Controllers;
 using GalaSoft.MvvmLight.Helpers;
 
 namespace DemoNavigation

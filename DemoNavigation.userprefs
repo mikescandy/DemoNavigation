@@ -1,33 +1,24 @@
 ﻿<Properties StartupConfiguration="{C7071669-592E-4AB9-B2F6-A8CA83F1EBB0}|Default">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.DemoNavigation AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.Android_Accelerated_x86" />
+  <MonoDevelop.Ide.ItemProperties.DemoNavigation AndroidDesignerPreferredDevice="Nexus 4" PreferredExecutionTarget="Android.192.168.195.102:5555" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\micheles\Documents\Visual Studio 2015\Projects\DemoNavigation\Core\Controllers\LoginController.cs" line="18" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="Core\Controllers\LoginController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Core.Droid\ActivityBase.cs">
     <Files>
-      <File FileName="DemoNavigation\Activities\LoginActivity.cs" Line="19" Column="56" />
-      <File FileName="DemoNavigation\Activities\HomeActivity.cs" Line="11" Column="39" />
+      <File FileName="DemoNavigation\Activities\LoginActivity.cs" Line="13" Column="37" />
+      <File FileName="DemoNavigation\Activities\HomeActivity.cs" Line="39" Column="29" />
       <File FileName="Core\ControllerBase.cs" Line="1" Column="1" />
-      <File FileName="Core\Controllers\LoginController.cs" Line="1" Column="1" />
+      <File FileName="Core.Droid\NavigationService.cs" Line="1" Column="1" />
+      <File FileName="DemoNavigation\Activities\FirstActivity.cs" Line="24" Column="30" />
+      <File FileName="DemoNavigation\Activities\SecondActivity.cs" Line="24" Column="2" />
+      <File FileName="DemoNavigation\DroidApplication.cs" Line="44" Column="49" />
+      <File FileName="Core.Droid\ActivityBase.cs" Line="132" Column="18" />
+      <File FileName="DemoNavigation\Resources\Resource.Designer.cs" Line="1" Column="1" />
+      <File FileName="Core\ApplicationBase.cs" Line="1" Column="1" />
     </Files>
-    <Pads>
-      <Pad Id="ProjectPad">
-        <State name="__root__">
-          <Node name="DemoNavigation" expanded="True" selected="True">
-            <Node name="Core" expanded="True">
-              <Node name="Controllers" expanded="True" />
-            </Node>
-            <Node name="DemoNavigation" expanded="True">
-              <Node name="Activities" expanded="True" />
-              <Node name="Resources" expanded="True">
-                <Node name="layout" expanded="True" />
-              </Node>
-            </Node>
-          </Node>
-        </State>
-      </Pad>
-    </Pads>
   </MonoDevelop.Ide.Workbench>
 </Properties>

@@ -1,9 +1,9 @@
-﻿using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
+﻿using Core;
+using GalaSoft.MvvmLight.Command;
 using Plugin.Media;
 using PropertyChanged;
 
-namespace Core
+namespace DemoApp.Controllers
 {
     [ImplementPropertyChanged]
     public class HomeController : ControllerBase
