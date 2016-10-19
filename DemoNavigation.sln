@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoNavigation", "DemoNavig
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{43661EC6-9854-4A52-AF47-24012A5FF218}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DemoApp", "DemoApp\DemoApp.csproj", "{0698AB86-A247-48CE-B710-23493E11DF6A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Droid", "Core.Droid\Core.Droid.csproj", "{C1630C35-8643-4199-9DDF-7485ACEC9EE6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +27,14 @@ Global
 		{43661EC6-9854-4A52-AF47-24012A5FF218}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43661EC6-9854-4A52-AF47-24012A5FF218}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43661EC6-9854-4A52-AF47-24012A5FF218}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0698AB86-A247-48CE-B710-23493E11DF6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0698AB86-A247-48CE-B710-23493E11DF6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0698AB86-A247-48CE-B710-23493E11DF6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0698AB86-A247-48CE-B710-23493E11DF6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C1630C35-8643-4199-9DDF-7485ACEC9EE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1630C35-8643-4199-9DDF-7485ACEC9EE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1630C35-8643-4199-9DDF-7485ACEC9EE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1630C35-8643-4199-9DDF-7485ACEC9EE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

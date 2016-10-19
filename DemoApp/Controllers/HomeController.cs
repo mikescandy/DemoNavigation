@@ -1,8 +1,9 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using Plugin.Media;
 using PropertyChanged;
 
-namespace Core.Controllers
+namespace Core
 {
     [ImplementPropertyChanged]
     public class HomeController : ControllerBase

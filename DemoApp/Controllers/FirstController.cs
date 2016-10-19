@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using PropertyChanged;
 
-namespace Core.Controllers
+namespace Core
 {
     [ImplementPropertyChanged]
     public class FirstController : ControllerBase

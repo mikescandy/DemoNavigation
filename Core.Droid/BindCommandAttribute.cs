@@ -1,10 +1,11 @@
 ﻿using System;
 
-namespace DemoNavigation
+namespace Core.Droid
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public class BindImageAttribute : Attribute
+    public class BindCommandAttribute : Attribute
     {
+        public string Target { get; set; }
         public string Source { get; set; }
     }
 }

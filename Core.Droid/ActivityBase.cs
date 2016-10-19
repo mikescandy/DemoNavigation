@@ -1,18 +1,15 @@
 using System.Linq;
 using System.Reflection;
-using System.Security;
 using Android.App;
-using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Widget;
 using Autofac;
 using CheeseBind;
-using Core;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Helpers;
 
-namespace DemoNavigation
+namespace Core.Droid
 {
     public abstract class ActivityBase<T> : Activity where T : IControllerBase
     {
@@ -109,18 +106,18 @@ namespace DemoNavigation
                 var bindableAttribute = bindableProperty.GetCustomAttribute(typeof(BindImageAttribute)) as BindImageAttribute;
                 if (bindableAttribute != null)
                 {
-                    Controller.SetBinding<IControllerBase,ImageView>(bindableAttribute.Source,bindableProperty.GetValue(this)).WhenSourceChanges(() =>
+                    Controller.SetBinding<IControllerBase, ImageView>(bindableAttribute.Source, bindableProperty.GetValue(this)).WhenSourceChanges(() =>
 
-						   {
-							   var b = (byte[])Controller.GetType().GetProperty(bindableAttribute.Source).GetValue(Controller);
-							   var iv = ((ImageView)bindableProperty.GetValue(this));
-							   if (b != null && b.Any())
-							   {
-								   iv.SetImageBitmap(BitmapFactory.DecodeByteArray(b, 0, b.Length));
-								   iv.Invalidate();
-							   }
-						   });
-}
+                             {
+                                 var b = (byte[])Controller.GetType().GetProperty(bindableAttribute.Source).GetValue(Controller);
+                                 var iv = ((ImageView)bindableProperty.GetValue(this));
+                                 if (b != null && b.Any())
+                                 {
+                                     iv.SetImageBitmap(BitmapFactory.DecodeByteArray(b, 0, b.Length));
+                                     iv.Invalidate();
+                                 }
+                             });
+                }
             }
         }
 

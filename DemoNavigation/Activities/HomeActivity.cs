@@ -8,7 +8,7 @@ using GalaSoft.MvvmLight.Helpers;
 
 namespace DemoNavigation
 {
-    [Activity(Label = "DemoNavigation", MainLauncher = false, Icon = "@drawable/icon")]
+    [Activity(Label = "DemoNavigation", MainLauncher = true, Icon = "@drawable/icon")]
     public class HomeActivity : ActivityBase<HomeController>
     {
         [BindView(Resource.Id.HomeButton)]

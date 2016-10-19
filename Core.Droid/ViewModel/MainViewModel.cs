@@ -1,6 +1,6 @@
 using GalaSoft.MvvmLight;
 
-namespace DemoNavigation.ViewModel
+namespace Core.Droid.ViewModel
 {
     /// <summary>
     /// This class contains properties that the main View can data bind to.

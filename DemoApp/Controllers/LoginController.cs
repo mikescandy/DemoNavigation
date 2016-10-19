@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
+using Plugin.Media;
 using PropertyChanged;
 
-namespace Core.Controllers
+namespace Core
 {
     [ImplementPropertyChanged]
     public sealed class LoginController : ControllerBase

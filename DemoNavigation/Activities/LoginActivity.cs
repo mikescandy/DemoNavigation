@@ -16,7 +16,7 @@ using GalaSoft.MvvmLight.Helpers;
 
 namespace DemoNavigation
 {
-	[Activity(Label = "LoginActivity", MainLauncher = true)]
+	[Activity(Label = "LoginActivity", MainLauncher = false)]
 	public class LoginActivity : ActivityBase<LoginController>
 	{
 		[BindView(Resource.Id.username)]
