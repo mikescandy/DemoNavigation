@@ -75,6 +75,7 @@
     <Compile Include="BindAttribute.cs" />
     <Compile Include="BindCommandAttribute.cs" />
     <Compile Include="BindImageAttribute.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="NavigationService.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
