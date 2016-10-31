@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Linq.Expressions;
-
 using GalaSoft.MvvmLight.Command;
 
 namespace Core

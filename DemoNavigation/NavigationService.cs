@@ -14,6 +14,7 @@ using Autofac;
 using Core;
 using Java.Lang;
 using Java.Util;
+using Knuj.Interfaces;
 using Application = Android.App.Application;
 using Stack = System.Collections.Stack;
 
@@ -193,6 +194,43 @@ namespace DemoNavigation
             }
 
             return activity;
+        }
+
+        public bool HasSubView()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Type GetSubView()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void NavigateToRoot<T>() where T : IControllerBase
+        {
+            throw new NotImplementedException();
+        }
+
+        public void NavigateToRoot<T>(object data) where T : IControllerBase
+        {
+            throw new NotImplementedException();
+        }
+
+        public void NavigateToSubView<TContainer, TTarget>()
+            where TContainer : IContainerController
+            where TTarget : IControllerBase
+        {
+            throw new NotImplementedException();
+        }
+
+        public Type GetViewForController<T>() where T : IControllerBase
+        {
+            throw new NotImplementedException();
+        }
+
+        public Type GetViewForController(Type type)
+        {
+            throw new NotImplementedException();
         }
     }
 }

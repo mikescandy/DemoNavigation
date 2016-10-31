@@ -11,7 +11,7 @@ namespace DemoApp.Controllers
         public string Username { get; set; }
         public string Password { get; set; }
         
-        private readonly LoginValidator _loginValidator;
+        //private readonly LoginValidator _loginValidator;
 
         public LoginController() : this(null)
         {
@@ -20,7 +20,7 @@ namespace DemoApp.Controllers
         public LoginController(object data) : base(data)
         {
             DoLoginCommand = new DependentRelayCommand(() => {/* do nothing*/}, Validate, this, () => Username, () => Password);
-            _loginValidator = new LoginValidator();
+            //_loginValidator = new LoginValidator();
         }
 
         public void Login()
@@ -30,8 +30,8 @@ namespace DemoApp.Controllers
 
         public bool Validate()
         {
-            var result = _loginValidator.Validate(this);
-            return result.IsValid;
+            //var result = _loginValidator.Validate(this);
+            return true; // result.IsValid;
         }
     }
 }

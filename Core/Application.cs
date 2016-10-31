@@ -1,22 +1,13 @@
-﻿using Autofac;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
+using Autofac;
+using Core.Interfaces;
 
 namespace Core
 {
-    public class Application //: ApplicationBase
+    public abstract class Singleton<T> where T : class, new()
     {
-        public IContainer Container;
-
-        static Application()
-        {
-        }
-
-        private Application()
-        {
-        }
-        private static readonly Application instance = new Application();
-
-        // ReSharper disable once ConvertToAutoProperty
-        public static Application Instance => instance;
-
+        public static readonly T Instance = new T();
     }
 }
