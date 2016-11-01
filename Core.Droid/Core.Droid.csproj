@@ -117,7 +117,8 @@
     <Compile Include="Attributes\BindCommandAttribute.cs" />
     <Compile Include="Attributes\BindImageAttribute.cs" />
     <Compile Include="BindingEngine.cs" />
-    <Compile Include="Converters.cs" />
+    <Compile Include="Converters\BooleanToStringConverter.cs" />
+    <Compile Include="Converters\Converters.cs" />
     <Compile Include="FragmentBase.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="NavigationService.cs" />

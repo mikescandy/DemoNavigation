@@ -18,9 +18,10 @@ namespace Core.Droid
 {
     public class BindingOperation
     {
-        public View Control { get; set; }
-        public string Source { get; set; }
-        public string Target { get; set; }
+        public IControllerBase Source { get; set; }
+        public View Target { get; set; }
+        public string SourceProperty { get; set; }
+        public string TargetProperty { get; set; }
         public string Converter { get; set; }
         public string ConverterParameter { get; set; }
         public BindingMode Mode { get; set; }
@@ -32,6 +33,7 @@ namespace Core.Droid
         private readonly INavigationService _navigationService;
         public virtual T Controller { get; private set; }
         private List<Fragment> _fragmentCache;
+        public int ResourceId { get; set; }
 
         protected ActivityBase(IntPtr javaReference, JniHandleOwnership jniHandleOwnership)
             : base(javaReference, jniHandleOwnership)
@@ -49,11 +51,12 @@ namespace Core.Droid
         protected void OnCreate(Bundle savedInstanceState, int resourceId)
         {
             base.OnCreate(savedInstanceState);
-            BindingEngine.Droid.BindingEngine.Initialize(this, resourceId);
-
+            ResourceId = resourceId;
             SetContentView(resourceId);
+            BindingEngine.Droid.BindingEngine.Initialize(this, resourceId);
             Cheeseknife.Bind(this);
             Bindings.AddRange(Bind(this, Controller));
+            Bindings.AddRange(BindXml(this, Controller));
             BindCommands(this, Controller);
             Bindings.AddRange(BindImages(this, Controller));
         }

@@ -418,7 +418,7 @@ namespace BindingEngine.Droid
                                 }
                             }
 
-                            bindingOperations.Add(new BindingOperation { Control = viewElements.ElementAt(i), Source = bindingSourceValue, Target = bindingTargetValue, Converter = bindingConverterValue, ConverterParameter = bindingConverterParameterValue, Mode = bindingModeValue });
+                            bindingOperations.Add(new BindingOperation { Target = viewElements.ElementAt(i), SourceProperty = bindingSourceValue, TargetProperty = bindingTargetValue, Converter = bindingConverterValue, ConverterParameter = bindingConverterParameterValue, Mode = bindingModeValue });
                         }
 
                     }

@@ -19,7 +19,7 @@ using Application = Android.App.Application;
 namespace DemoNavigation
 {
     [Application]
-  public class DroidApplication :Application, Application.IActivityLifecycleCallbacks
+  public class DroidApplication :ApplicationBase, Application.IActivityLifecycleCallbacks
     {
         
         /// <summary>
@@ -42,6 +42,7 @@ namespace DemoNavigation
             builder.RegisterType<FirstController>();
             builder.RegisterType<SecondController>();
             builder.RegisterType<LoginController>();
+            builder.RegisterType<app>().AsImplementedInterfaces();
             Core.Container.Instance.SetContainer(builder);
             RegisterActivityLifecycleCallbacks(this);
          }

@@ -198,7 +198,7 @@ namespace DemoNavigation
 
         public bool HasSubView()
         {
-            throw new NotImplementedException();
+            return false;
         }
 
         public Type GetSubView()

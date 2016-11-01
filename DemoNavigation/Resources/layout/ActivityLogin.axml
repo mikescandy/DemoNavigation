@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+               xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/username" />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/password" />
-    <Button
-        android:id="@+id/login"
-        android:layout_width="100dp"
-        android:layout_height="40dp" />
-    <Button
-        android:id="@+id/donothing"
-        android:layout_width="100dp"
-        android:layout_height="40dp" />
+    android:layout_height="match_parent"
+    >
+  <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/username"
+      local:Binding="{Source=Username, Target=Text, Mode=TwoWay; Source=Username, Target=Visibility, Mode=OneWay, Converter=StringToVisibilityConverter}"/>
+  <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/password"
+      local:Binding="{Source=Password, Target=Text, Mode=TwoWay}"/>
+  <Button
+      android:id="@+id/login"
+      android:layout_width="100dp"
+      android:layout_height="40dp"
+      local:Binding="{Source=DoLoginCommand, Target=Click}"/>
+  <Button
+      android:id="@+id/donothing"
+      android:layout_width="100dp"
+      android:layout_height="40dp" />
 </LinearLayout>

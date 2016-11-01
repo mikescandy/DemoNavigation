@@ -11,30 +11,12 @@ using GalaSoft.MvvmLight.Helpers;
 
 namespace DemoNavigation
 {
-    [Activity(Label = "LoginActivity", MainLauncher = true)]
+    [Activity(Label = "LoginActivity", MainLauncher = true, Theme = "@style/Theme.AppCompat.Light")]
     public class LoginActivity : ActivityBase<LoginController>
     {
-
-
-        [BindView(Resource.Id.username)]
-        [Bind(Source = "Username", Target = "Text", BindingMode = BindingMode.TwoWay)]
-        public EditText Username { get; set; }
-
-        [BindView(Resource.Id.password)]
-        [Bind(Source = "Password", Target = "Text", BindingMode = BindingMode.TwoWay)]
-        [Bind(Source = "Password", Target = "Visibility", BindingMode = BindingMode.OneWay, SourceToTargetConverter = "StringToVisibilityConverter", TargetToSourceConverter = "VisibilityToStringConverter", Converters = typeof(Converters))]
-        public EditText Password { get; set; }
-
-        [BindView(Resource.Id.login)]
-        [BindCommand(Source = "DoLoginCommand")]
-        //	[Bind(Source = "ButtonText", Target = "Text", BindingMode = BindingMode.OneWay)]
-        public Button CameraButton { get; set; }
-
         protected override void OnCreate(Bundle savedInstanceState)
         {
             OnCreate(savedInstanceState, Resource.Layout.ActivityLogin);
-
-            // Create your application here
         }
     }
 

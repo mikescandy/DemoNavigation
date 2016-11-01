@@ -47,6 +47,7 @@
     <Compile Include="DependentRelayCommand.cs" />
     <Compile Include="Interfaces\IApplication.cs" />
     <Compile Include="Interfaces\IBackHandlerFragment.cs" />
+    <Compile Include="Interfaces\IBindingValueConverter.cs" />
     <Compile Include="Interfaces\IContainerController.cs" />
     <Compile Include="Interfaces\IContainerView.cs" />
     <Compile Include="Interfaces\IContainerViewController.cs" />
