@@ -1,61 +1,97 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Input;
-using Android.App;
-using Android.Graphics;
 using Android.OS;
+ 
+using Android.Runtime;
+using Android.Support.V4.App;
+using Android.Support.V7.App;
 using Android.Views;
-using Android.Widget;
+ 
 using Autofac;
 using CheeseBind;
 using GalaSoft.MvvmLight.Helpers;
+using Knuj.Interfaces;
+using Knuj.Interfaces.Views;
+using static Core.Droid.ReflectionUtils;
 
 namespace Core.Droid
 {
-    public abstract class ActivityBase<T> : Activity where T : IControllerBase
+    public class BindingOperation
     {
-        protected Binding Bindings { get; set; }
+        public IControllerBase Source { get; set; }
+        public View Target { get; set; }
+        public string SourceProperty { get; set; }
+        public string TargetProperty { get; set; }
+        public string Converter { get; set; }
+        public string ConverterParameter { get; set; }
+        public BindingMode Mode { get; set; }
+    }
+
+    public abstract class ActivityBase<T> : AppCompatActivity, IView, IUiStatusNotifier, IContainerViewController where T : IControllerBase
+    {
+        protected List<Binding> Bindings { get; set; }
         private readonly INavigationService _navigationService;
-        protected virtual T Controller { get; private set; }
+        public virtual T Controller { get; private set; }
+        private List<Fragment> _fragmentCache;
+        public int ResourceId { get; set; }
+
+        protected ActivityBase(IntPtr javaReference, JniHandleOwnership jniHandleOwnership)
+            : base(javaReference, jniHandleOwnership)
+        {
+        }
 
         protected ActivityBase()
         {
-            _navigationService = Core.Application.Instance.Container.Resolve<INavigationService>();
+            _navigationService = Container.Instance.Resolve<INavigationService>();
             Controller = ResolveController();
+            Bindings = new List<Binding>();
+            _fragmentCache = new List<Fragment>();
         }
 
         protected void OnCreate(Bundle savedInstanceState, int resourceId)
         {
             base.OnCreate(savedInstanceState);
+            ResourceId = resourceId;
             SetContentView(resourceId);
+            BindingEngine.Droid.BindingEngine.Initialize(this, resourceId);
             Cheeseknife.Bind(this);
-            BindString();
-            BindCommands();
-            BindImages();
+            Bindings.AddRange(Bind(this, Controller));
+            Bindings.AddRange(BindXml(this, Controller));
+            BindCommands(this, Controller);
+            Bindings.AddRange(BindImages(this, Controller));
         }
 
         protected override void OnResume()
         {
             base.OnResume();
+            OnForeground(this);
+            Controller.Refresh();
             if (_navigationService.HasReturnData())
             {
                 Controller.ReverseInit(_navigationService.GetReturnData());
             }
+            if (_navigationService.HasSubView())
+            {
+                var subView = _navigationService.GetSubView();
+                (this as IContainerViewController).ShowController(subView);
+            }
+        }
+
+        protected override void OnPause()
+        {
+            OnBackground(this);
+            base.OnPause();
         }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
 
-            var bindings = GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).Where(p => p.PropertyType.IsAssignableFrom(typeof(Binding)) || p.GetType().IsAssignableFrom(typeof(Binding<,>)));
-            foreach (var binding in bindings)
+            foreach (var binding in Bindings)
             {
-                var o = binding.GetValue(this);
-                if (o is Binding)
-                {
-                    ((Binding)o).Detach();
-                }
+                binding.Detach();
             }
 
             var views = GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).Where(p => p.CustomAttributes.Any(m => m.AttributeType.Name == "BindView"));
@@ -63,6 +99,7 @@ namespace Core.Droid
             {
                 ((Java.Lang.Object)view.GetValue(this)).Dispose();
             }
+            Dispose();
         }
 
         private T ResolveController()
@@ -71,11 +108,11 @@ namespace Core.Droid
 
             if (_navigationService.HasData())
             {
-                controller = Core.Application.Instance.Container.Resolve<T>(new NamedParameter("data", _navigationService.GetData()));
+                controller = Container.Instance.Resolve<T>(new NamedParameter("data", _navigationService.GetData()));
             }
             else
             {
-                controller = Core.Application.Instance.Container.Resolve<T>();
+                controller = Container.Instance.Resolve<T>();
             }
 
             if (_navigationService.HasReturnData())
@@ -86,89 +123,72 @@ namespace Core.Droid
             return controller;
         }
 
-        private void BindString()
+        public virtual bool OnForeground(IView view)
         {
-            var bindableProperties = GetType().GetProperties().Where(p => p.CustomAttributes.Any(a => a.AttributeType.Name == "BindAttribute"));
-            foreach (var bindableProperty in bindableProperties)
-            {
-                var bindableAttributes = bindableProperty.GetCustomAttributes(typeof(BindAttribute)).Select(m => m as BindAttribute);
 
-                foreach (var bindableAttribute in bindableAttributes)
-                {
-                    if (bindableAttribute != null)
-                    {
-                        var myMethod = typeof(GalaSoft.MvvmLight.Helpers.Extensions)
-                             .GetMethods()
-                             .Where(m => m.Name == "SetBinding")
-                             .Select(m => new
-                             {
-                                 Method = m,
-                                 Params = m.GetParameters(),
-                                 Args = m.GetGenericArguments()
-                             })
-                             .Where(x => x.Params.Length == 7
-                                         && x.Args.Length == 2
-                                         && x.Params[1].ParameterType == typeof(string)
-                                          )
-                             .Select(x => x.Method)
-                             .First();
+            if (!(Controller is IUiStatusNotifier)) return false;
+            ((IUiStatusNotifier)Controller).OnForeground(this);
 
-
-                        var generic = myMethod.MakeGenericMethod(Controller.GetType().GetProperty(bindableAttribute.Source).PropertyType, bindableProperty.GetValue(this).GetType().GetProperty(bindableAttribute.Target).PropertyType);
-                        var binding = generic.Invoke(bindableProperty.GetValue(this), new object[] { Controller, bindableAttribute.Source, bindableProperty.GetValue(this), bindableAttribute.Target, bindableAttribute.BindingMode, null, null });
-
-                        if (!string.IsNullOrEmpty(bindableAttribute.SourceToTargetConverter))
-                        {
-                            var convertSourceToTargetMethod = binding.GetType().GetMethod("ConvertSourceToTarget");
-                            var convertSourceToTargetFunc = bindableAttribute.Converters.GetProperty(bindableAttribute.SourceToTargetConverter, BindingFlags.Static | BindingFlags.Public).GetValue(null);
-                            convertSourceToTargetMethod.Invoke(binding, new[] { convertSourceToTargetFunc });
-                        }
-
-                        if (!string.IsNullOrEmpty(bindableAttribute.TargetToSourceConverter))
-                        {
-                            var convertTargetToSourceMethod = binding.GetType().GetMethod("ConvertTargetToSource");
-                            var convertTargetToSourceFunc = bindableAttribute.Converters.GetProperty(bindableAttribute.TargetToSourceConverter, BindingFlags.Static | BindingFlags.Public).GetValue(null);
-                            convertTargetToSourceMethod.Invoke(binding, new[] { convertTargetToSourceFunc });
-                        }
-                    }
-                }
-            }
+            ((ApplicationBase)Application).CurrentContext = this;
+            return true;
         }
 
-        private void BindImages()
+        public virtual bool OnBackground(IView view)
         {
-            var bindableProperties = GetType().GetProperties().Where(p => p.CustomAttributes.Any(a => a.AttributeType.Name == "BindImageAttribute"));
-            foreach (var bindableProperty in bindableProperties)
-            {
-                var bindableAttribute = bindableProperty.GetCustomAttribute(typeof(BindImageAttribute)) as BindImageAttribute;
-                if (bindableAttribute != null)
-                {
-                    Controller.SetBinding<IControllerBase, ImageView>(bindableAttribute.Source, bindableProperty.GetValue(this)).WhenSourceChanges(() =>
-
-                             {
-                                 var b = (byte[])Controller.GetType().GetProperty(bindableAttribute.Source).GetValue(Controller);
-                                 var iv = ((ImageView)bindableProperty.GetValue(this));
-                                 if (b != null && b.Any())
-                                 {
-                                     iv.SetImageBitmap(BitmapFactory.DecodeByteArray(b, 0, b.Length));
-                                     iv.Invalidate();
-                                 }
-                             });
-                }
-            }
+            if (!(Controller is IUiStatusNotifier)) return false;
+            ((IUiStatusNotifier)Controller).OnBackground(this);
+            return true;
         }
 
-        private void BindCommands()
+        public virtual int GetContainerViewId()
         {
-            var bindableProperties = GetType().GetProperties().Where(p => p.CustomAttributes.Any(a => a.AttributeType.Name == "BindCommandAttribute"));
-            foreach (var bindableProperty in bindableProperties)
+            return -1;
+        }
+
+        public virtual void SetTitle(string title)
+        {
+        }
+
+        public virtual void SetSelectedFragment(IBackHandlerFragment backHandledFragment)
+        {
+
+
+        }
+
+        public virtual void ShowController(Type type)
+        {
+            var targetType = _navigationService.GetViewForController(type);
+            var fragment = (Fragment)Activator.CreateInstance(targetType);
+
+            if (false) // TODO reimplement add to back stack
             {
-                var bindableAttribute = bindableProperty.GetCustomAttribute(typeof(BindCommandAttribute)) as BindCommandAttribute;
-                if (bindableAttribute != null)
+                SupportFragmentManager.BeginTransaction()
+                    .Replace(GetContainerViewId(), fragment)
+                    .AddToBackStack("")
+                    .Commit();
+            }
+            else
+            {
+                if (SupportFragmentManager.Fragments != null && SupportFragmentManager.Fragments.Any())
                 {
-                    bindableProperty.GetValue(this).SetCommand(bindableAttribute.Target, (ICommand)Controller.GetType().GetProperty(bindableAttribute.Source).GetValue(Controller));
+                    SupportFragmentManager.BeginTransaction()
+                        .Replace(GetContainerViewId(), fragment)
+                        .Commit();
+                }
+                else
+                {
+                    SupportFragmentManager.BeginTransaction()
+                        .Add(GetContainerViewId(), fragment)
+                        .Commit();
                 }
             }
+
+        }
+
+        public virtual void ShowController()
+        {
+            var targetType = _navigationService.GetSubView();
+            ShowController(targetType);
         }
     }
 }

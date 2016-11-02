@@ -19,9 +19,9 @@ using Application = Android.App.Application;
 namespace DemoNavigation
 {
     [Application]
-  public class DroidApplication :Application, Application.IActivityLifecycleCallbacks
+  public class DroidApplication :ApplicationBase, Application.IActivityLifecycleCallbacks
     {
-        public static Core.Application app = Core.Application.Instance;
+        
         /// <summary>
         /// Base constructor which must be implemented if it is to successfully inherit from the Application
         /// class.
@@ -42,7 +42,8 @@ namespace DemoNavigation
             builder.RegisterType<FirstController>();
             builder.RegisterType<SecondController>();
             builder.RegisterType<LoginController>();
-            app.Container = builder.Build();
+            builder.RegisterType<app>().AsImplementedInterfaces();
+            Core.Container.Instance.SetContainer(builder);
             RegisterActivityLifecycleCallbacks(this);
          }
 

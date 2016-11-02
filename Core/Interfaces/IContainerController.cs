@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core
+namespace Knuj.Interfaces
 {
-    public interface IContainerView 
+    public interface IContainerController
     {
     }
 }

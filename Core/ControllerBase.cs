@@ -1,13 +1,16 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Autofac;
-using Core.Annotations;
+using Knuj.Interfaces;
+using Knuj.Interfaces.Views;
 
 namespace Core
 {
-    public abstract class ControllerBase : IControllerBase, INotifyPropertyChanged
+    public abstract class ControllerBase : IControllerBase
     {
-        public INavigationService NavigationService = Application.Instance.Container.Resolve<INavigationService>();
+        public string Title { get; set; }
+        public INavigationService NavigationService = Container.Instance.Resolve<INavigationService>();
+       //public IMobileApplication MobileApplication = Container.Instance.Resolve<IMobileApplication>();
+        //public ICoreCache Cache = Container.Instance.Resolve<ICoreCache>();
 
         protected ControllerBase() : this(null)
         {
@@ -21,9 +24,24 @@ namespace Core
         {
         }
 
+        public virtual void Refresh()
+        {
+        }
+
+        public bool OnForeground(IView view)
+        {
+            Container.Instance.Resolve<IMobileApplication>().OnForeground(view);
+            return true;
+        }
+
+        public bool OnBackground(IView view)
+        {
+            Container.Instance.Resolve<IMobileApplication>().OnBackground(view);
+            return true;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-        [NotifyPropertyChangedInvocator]
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
