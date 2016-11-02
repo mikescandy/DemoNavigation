@@ -1,4 +1,4 @@
-Using Android.App;
+using Android.App;
 using Android.OS;
 using Core.Droid;
 using DemoApp.Controllers;

@@ -1,4 +1,5 @@
-﻿using Core;
+﻿using System.Threading.Tasks;
+using Core;
 using GalaSoft.MvvmLight.Command;
 using Plugin.Media;
 using PropertyChanged;
@@ -20,7 +21,7 @@ namespace DemoApp.Controllers
         public HomeController(object data) : base(data)
         {
             DoSomethingCommand = new RelayCommand(DoSomething);
-            DoTakePictureCommand = new RelayCommand(DoTakePicture);
+            DoTakePictureCommand = new RelayCommand(async() => await DoTakePicture());
         }
 
         public void DoSomething()
@@ -28,7 +29,7 @@ namespace DemoApp.Controllers
             NavigationService.NavigateTo<FirstController>(new FirstControllerData { S = EditText }, true);
         }
 
-        public async void DoTakePicture()
+        public async Task DoTakePicture()
         {
             await CrossMedia.Current.Initialize();
             if (CrossMedia.Current.IsCameraAvailable && CrossMedia.Current.IsTakePhotoSupported)

@@ -12,6 +12,7 @@ using CheeseBind;
 using GalaSoft.MvvmLight.Helpers;
 using Java.Lang;
 using Knuj.Interfaces.Views;
+using static Core.Droid.BindingUtils;
 
 namespace Core.Droid
 {
@@ -40,10 +41,12 @@ namespace Core.Droid
         {
             base.OnCreateView(inflater, container, savedInstanceState);
             var view = inflater.Inflate(resourceId, container, false);
+            
             Cheeseknife.Bind(this, view);
-            Bindings.AddRange(ReflectionUtils.Bind(this, Controller));
-            ReflectionUtils.BindCommands(this, Controller);
-            Bindings.AddRange(ReflectionUtils.BindImages(this, Controller));
+            Bindings.AddRange(Bind(this, Controller));
+            Bindings.AddRange(BindXml(this, Controller));
+            BindCommands(this, Controller);
+            Bindings.AddRange(BindImages(this, Controller));
             return view;
         }
         
@@ -135,17 +138,17 @@ namespace Core.Droid
         {
             base.OnDestroy();
 
-            //foreach (var binding in Bindings)
-            //{
-            //    binding.Detach();
-            //}
+            foreach (var binding in Bindings)
+            {
+                binding.Detach();
+            }
 
-            //var views = GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).Where(p => p.CustomAttributes.Any(m => m.AttributeType.Name == "BindView"));
-            //foreach (var view in views)
-            //{
-            //    ((Java.Lang.Object)view.GetValue(this)).Dispose();
-            //}
-            //Dispose();
+            var views = GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).Where(p => p.CustomAttributes.Any(m => m.AttributeType.Name == "BindView"));
+            foreach (var view in views)
+            {
+                ((Java.Lang.Object)view.GetValue(this)).Dispose();
+            }
+            Dispose();
         }
     }
 }

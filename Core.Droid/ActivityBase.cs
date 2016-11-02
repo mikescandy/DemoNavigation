@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using Android.OS;
- 
+
 using Android.Runtime;
 using Android.Support.V4.App;
 using Android.Support.V7.App;
 using Android.Views;
- 
+
 using Autofac;
 using CheeseBind;
 using GalaSoft.MvvmLight.Helpers;
 using Knuj.Interfaces;
 using Knuj.Interfaces.Views;
-using static Core.Droid.ReflectionUtils;
+using static Core.Droid.BindingUtils;
 
 namespace Core.Droid
 {
@@ -55,7 +55,6 @@ namespace Core.Droid
             base.OnCreate(savedInstanceState);
             ResourceId = resourceId;
             SetContentView(resourceId);
-            BindingEngine.Droid.BindingEngine.Initialize(this, resourceId);
             Cheeseknife.Bind(this);
             Bindings.AddRange(Bind(this, Controller));
             Bindings.AddRange(BindXml(this, Controller));
@@ -91,7 +90,7 @@ namespace Core.Droid
 
             foreach (var binding in Bindings)
             {
-                binding.Detach();
+                binding?.Detach();
             }
 
             var views = GetType().GetProperties(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance).Where(p => p.CustomAttributes.Any(m => m.AttributeType.Name == "BindView"));
