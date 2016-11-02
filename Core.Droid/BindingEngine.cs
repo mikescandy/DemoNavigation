@@ -388,7 +388,7 @@ namespace BindingEngine.Droid
                         {
                             if (!bindingOperation.Contains(","))
                             {
-                                throw new InvalidOperationException(string.Format("The following XML binding operation is not well formatted, it should contains at least one ',' between Source and Target:{0}{1}", Environment.NewLine, xmlBindingValue));
+                                //throw new InvalidOperationException(string.Format("The following XML binding operation is not well formatted, it should contains at least one ',' between Source and Target:{0}{1}", Environment.NewLine, xmlBindingValue));
                             }
 
                             // Source properties can be nested properties: MyObject.MyProperty.SampleProperty

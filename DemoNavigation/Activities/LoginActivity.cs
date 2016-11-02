@@ -1,13 +1,7 @@
-﻿using System;
-using Android.App;
-using Android.Content;
+﻿using Android.App;
 using Android.OS;
-using Android.Views;
-using Android.Widget;
-using CheeseBind;
 using Core.Droid;
 using DemoApp.Controllers;
-using GalaSoft.MvvmLight.Helpers;
 
 namespace DemoNavigation
 {
@@ -18,26 +12,5 @@ namespace DemoNavigation
         {
             OnCreate(savedInstanceState, Resource.Layout.ActivityLogin);
         }
-    }
-
-    public static class Converters
-    {
-        public static Func<string, ViewStates> StringToVisibilityConverter
-        {
-            get
-            {
-                return s => s == "goaway" ? ViewStates.Gone : ViewStates.Visible;
-            }
-        }
-
-        public static Func<ViewStates, string> VisibilityToStringConverter
-        {
-            get
-            {
-                return s => "";
-            }
-        }
-
-        
     }
 }

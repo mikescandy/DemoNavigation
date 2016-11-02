@@ -29,7 +29,7 @@ namespace DemoApp.Controllers
 
         public void Login()
         {
-            NavigationService.NavigateTo<FirstController>(new FirstControllerData { S = Password }, true);
+            NavigationService.NavigateTo<HomeController>(/*new FirstControllerData { S = Password }, true*/);
         }
 
         public bool Validate()

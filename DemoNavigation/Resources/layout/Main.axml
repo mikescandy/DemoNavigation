@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-               xmlns:local="http://schemas.android.com/apk/res-auto"
+    xmlns:local="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/editText1" 
-      local:Binding="{Source=EditText, Target=Text, Mode=TwoWay}"/>
-        
-    <Button
-        android:id="@+id/HomeButton"
-        android:layout_width="100dp"
-        android:layout_height="40dp" 
-      local:Binding="{Source=ButtonText, Target=Text, Mode=OneWay;Source=DoSomethingCommand, Target=Click}"/>
-        
-    <ImageView
-        android:src="@android:drawable/ic_menu_gallery"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/imageView1" />
-    <Button
-        android:id="@+id/CameraButton"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
-  local:Binding="{Source=ButtonText, Target=Text, Mode=OneWay;Source=DoTakePictureCommand, Target=Click}"/>
+  <EditText
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/editText1"
+      local:Binding="{Source=EditText, Target=Text, Mode=TwoWay}" />
+  <Button
+      android:id="@+id/HomeButton"
+      android:layout_width="100dp"
+      android:layout_height="40dp"
+      local:Binding="{Source=ButtonText, Target=Text, Mode=OneWay;Source=DoSomethingCommand, Target=Click}" />
+  <ImageView
+      android:src="@android:drawable/ic_menu_gallery"
+      android:layout_width="200dp"
+      android:layout_height="200dp"
+      android:id="@+id/imageView1"
+      local:Binding="{Source=Image}" />
+  <Button
+      android:id="@+id/CameraButton"
+      android:layout_width="100dp"
+      android:layout_height="40dp"
+      local:Binding="{Source=ButtonText, Target=Text, Mode=OneWay;Source=DoTakePictureCommand, Target=Click}" />
 </LinearLayout>

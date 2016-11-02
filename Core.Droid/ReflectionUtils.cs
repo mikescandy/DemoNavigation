@@ -448,7 +448,7 @@ namespace Core.Droid
                         {
                             if (!bindingOperation.Contains(","))
                             {
-                                throw new InvalidOperationException(string.Format("The following XML binding operation is not well formatted, it should contains at least one ',' between Source and Target:{0}{1}", Environment.NewLine, xmlBindingValue));
+                                //throw new InvalidOperationException(string.Format("The following XML binding operation is not well formatted, it should contains at least one ',' between Source and Target:{0}{1}", Environment.NewLine, xmlBindingValue));
                             }
 
                             // Source properties can be nested properties: MyObject.MyProperty.SampleProperty
@@ -530,7 +530,7 @@ namespace Core.Droid
             var sourcePropertyName = sourcePropertyTree.Last();
             var sourcePropertyType = source.GetType().GetNestedProperty(sourcePropertyAttribute, source);//  property.GetType().GetProperty(bindableAttribute.Target).PropertyType;
 
-            if (sourcePropertyType.IsAssignableFrom(typeof(ICommand)))
+            if (typeof(ICommand).IsAssignableFrom(sourcePropertyType))
             {
                 property.SetCommand(targetPropertyAttribute, (ICommand)source.GetType().GetProperty(sourcePropertyAttribute).GetValue(source));
                 return null;
@@ -541,78 +541,80 @@ namespace Core.Droid
                 var targetProperty = targetPropertyTree.Length == 1
                     ? property
                     : property.GetNestedPropertyValue(string.Join(".", targetPropertyTree.SkipLastN(1)));
-                var targetPropertyName = targetPropertyTree.Last();
-                var targetPropertyType = targetProperty.GetType().GetProperty(targetPropertyName).PropertyType;//  property.GetType().GetProperty(bindableAttribute.Target).PropertyType;
-
-                var myMethod = typeof(GalaSoft.MvvmLight.Helpers.Extensions)
-                  .GetMethods()
-                  .Where(m => m.Name == "SetBinding")
-                  .Select(m => new
-                  {
-                      Method = m,
-                      Params = m.GetParameters(),
-                      Args = m.GetGenericArguments()
-                  })
-                  .Where(x => x.Params.Length == 7
-                              && x.Args.Length == 2
-                              && x.Params[1].ParameterType == typeof(string)
-                  )
-                  .Select(x => x.Method)
-                  .First();
-
-
-                var generic = myMethod.MakeGenericMethod(sourcePropertyType, targetPropertyType);
-
-                var binding = generic.Invoke(targetProperty, new[] { sourceProperty, sourcePropertyName, targetProperty, targetPropertyName, bindingMode, null, null });
-
-                if (!string.IsNullOrWhiteSpace(bindingOperation.Converter))
+               
+                if (sourcePropertyType == typeof(byte[]) /*&& targetProperty.GetType() == typeof(ImageView)*/)
                 {
-                    var converterType = TypesImplementingInterface(typeof(IBindingValueConverter<,>)).FirstOrDefault(m => m.Name == bindingOperation.Converter);
+                    var binding = source.SetBinding<IControllerBase, ImageView>(sourcePropertyName, targetProperty).WhenSourceChanges(() =>
 
-                    if (converterType != null)
                     {
-                        var converter = Activator.CreateInstance(converterType);
-                        var convertSourceToTargetMethod = binding.GetType().GetMethod("ConvertSourceToTarget");
-                        var convertTargetToSourceMethod = binding.GetType().GetMethod("ConvertTargetToSource");
-                        try
+                        var b = (byte[])source.GetType().GetProperty(sourcePropertyName).GetValue(source);
+                        var iv = ((ImageView)targetProperty);
+                        if (b != null && b.Any())
                         {
-                            var s2tFunc = converterType.GetProperty("Convert").GetValue(converter);
-                            convertSourceToTargetMethod.Invoke(binding, new[] { s2tFunc });
+                            iv.SetImageBitmap(BitmapFactory.DecodeByteArray(b, 0, b.Length));
+                            iv.Invalidate();
                         }
-                        catch (System.NotImplementedException)
-                        {
-                            // ignoring
-                        }
-                        try
-                        {
-                            var t2sFunc = converterType.GetProperty("ConvertBack").GetValue(converter);
-                            convertTargetToSourceMethod.Invoke(binding, new[] { t2sFunc });
-                        }
-                        catch (System.Exception)
-                        {
-                            // ignoring
-                        }
-
-                    }
+                    });
+                    return binding;
                 }
+                else
+                {
+                    var targetPropertyName = targetPropertyTree.Last();
+                    var targetPropertyType = targetProperty.GetType().GetProperty(targetPropertyName).PropertyType;//  property.GetType().GetProperty(bindableAttribute.Target).PropertyType;
+
+                    var myMethod = typeof(GalaSoft.MvvmLight.Helpers.Extensions)
+                      .GetMethods()
+                      .Where(m => m.Name == "SetBinding")
+                      .Select(m => new
+                      {
+                          Method = m,
+                          Params = m.GetParameters(),
+                          Args = m.GetGenericArguments()
+                      })
+                      .Where(x => x.Params.Length == 7
+                                  && x.Args.Length == 2
+                                  && x.Params[1].ParameterType == typeof(string)
+                      )
+                      .Select(x => x.Method)
+                      .First();
 
 
+                    var generic = myMethod.MakeGenericMethod(sourcePropertyType, targetPropertyType);
 
-                //if (!string.IsNullOrEmpty(bindableAttribute?.SourceToTargetConverter))
-                //{
-                //    var convertSourceToTargetFunc = bindableAttribute.Converters.GetProperty(bindableAttribute.SourceToTargetConverter, BindingFlags.Static | BindingFlags.Public).GetValue(null);
+                    var binding = generic.Invoke(targetProperty, new[] { sourceProperty, sourcePropertyName, targetProperty, targetPropertyName, bindingMode, null, null });
 
+                    if (!string.IsNullOrWhiteSpace(bindingOperation.Converter))
+                    {
+                        var converterType = TypesImplementingInterface(typeof(IBindingValueConverter<,>)).FirstOrDefault(m => m.Name == bindingOperation.Converter);
 
+                        if (converterType != null)
+                        {
+                            var converter = Activator.CreateInstance(converterType);
+                            var convertSourceToTargetMethod = binding.GetType().GetMethod("ConvertSourceToTarget");
+                            var convertTargetToSourceMethod = binding.GetType().GetMethod("ConvertTargetToSource");
+                            try
+                            {
+                                var s2tFunc = converterType.GetProperty("Convert").GetValue(converter);
+                                convertSourceToTargetMethod.Invoke(binding, new[] { s2tFunc });
+                            }
+                            catch (System.NotImplementedException)
+                            {
+                                // ignoring
+                            }
+                            try
+                            {
+                                var t2sFunc = converterType.GetProperty("ConvertBack").GetValue(converter);
+                                convertTargetToSourceMethod.Invoke(binding, new[] { t2sFunc });
+                            }
+                            catch (System.Exception)
+                            {
+                                // ignoring
+                            }
 
-                //    targetProperty.SetBinding<string,string>(null).conv
-
-                //}
-
-                //if (!string.IsNullOrEmpty(bindableAttribute?.TargetToSourceConverter))
-                //{
-                //    var convertTargetToSourceFunc = bindableAttribute.Converters.GetProperty(bindableAttribute.TargetToSourceConverter, BindingFlags.Static | BindingFlags.Public).GetValue(null);
-                //}
-                return (Binding)binding;
+                        }
+                    }
+                    return (Binding)binding;
+                }
             }
 
         }
